@@ -1,11 +1,9 @@
 FROM nginx:alpine
 
-# update system libraries
 RUN apk update && apk upgrade
 
 COPY index.html /usr/share/nginx/html/index.html
 
-# run as non-root user
 USER nginx
 
 EXPOSE 80

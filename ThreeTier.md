@@ -43,3 +43,7 @@ FRONTEND
 
 
 ![1773416239954](image/ThreeTier/1773416239954.png)
+
+
+
+yaml file

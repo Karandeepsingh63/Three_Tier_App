@@ -7,7 +7,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-/* Database connection configuration */
+
 const dbConfig = {
   user: "inventory_user",
   host: "database",
@@ -18,7 +18,7 @@ const dbConfig = {
 
 const database = new Pool(dbConfig);
 
-/* Fetch all products */
+
 server.get("/products", async (req, res) => {
 
   console.log("Request received -> Fetch products");
@@ -41,7 +41,7 @@ server.get("/products", async (req, res) => {
 });
 
 
-/* Add a new product */
+
 server.post("/products", async (req, res) => {
 
   const productName = req.body.name;
@@ -71,7 +71,7 @@ server.post("/products", async (req, res) => {
 });
 
 
-/* Start backend server */
+
 const PORT = 3001;
 
 server.listen(PORT, () => {

@@ -42,6 +42,7 @@ jobs:
       with:
         image-ref: ${{ secrets.DOCKER_USERNAME }}/inventory-backend:latest
         format: table
+        severity: HIGH,CRITICAL
         exit-code: 0
         ignore-unfixed: true
 
@@ -52,6 +53,7 @@ jobs:
         image-ref: ${{ secrets.DOCKER_USERNAME }}/inventory-frontend:latest
         format: table
         exit-code: 0
+        severity: HIGH,CRITICAL
         ignore-unfixed: true
 
 

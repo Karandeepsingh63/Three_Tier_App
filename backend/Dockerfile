@@ -2,25 +2,18 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# update OS packages to patched versions
-RUN apk update && apk upgrade
+# Copy both package.json and package-lock.json
+COPY package*.json package-lock.json ./
 
-COPY package*.json ./
-
-RUN npm install
+# Install exact versions from package-lock.json
+RUN npm ci
 
 COPY . .
 
-# create non-root user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
-RUN chown -R appuser:appgroup /app
-
-USER appuser
-
 EXPOSE 3001
 
-HEALTHCHECK --interval=30s --timeout=5s \
-CMD wget --quiet --tries=1 --spider http://localhost:3001 || exit 1
+# Use a non-root user
+RUN addgroup app && adduser -S -G app app
+USER app
 
 CMD ["node", "server.js"]

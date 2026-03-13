@@ -1,249 +1,210 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Product Inventory</title>
+  <title>Product Inventory</title>
 
-<style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    body {
+      background: #f4f7fb;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-body{
-background:#f4f7fb;
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-}
+    .wrapper {
+      width: 1100px;
+      display: flex;
+      gap: 30px;
+    }
 
-.wrapper{
-width:1100px;
-display:flex;
-gap:30px;
-}
+    /* LEFT FORM PANEL */
+    .form-panel {
+      width: 35%;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      animation: slideLeft 0.6s ease;
+    }
 
-/* LEFT FORM PANEL */
+    .form-panel h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
 
-.form-panel{
-width:35%;
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-animation:slideLeft 0.6s ease;
-}
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: 0.2s;
+    }
 
-.form-panel h2{
-margin-bottom:20px;
-color:#333;
-}
+    input:focus {
+      border-color: #4f46e5;
+      outline: none;
+    }
 
-input{
-width:100%;
-padding:12px;
-margin-bottom:15px;
-border:1px solid #ddd;
-border-radius:6px;
-font-size:14px;
-transition:0.2s;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-input:focus{
-border-color:#4f46e5;
-outline:none;
-}
+    button:hover {
+      background: #4338ca;
+      transform: translateY(-2px);
+    }
 
-button{
-width:100%;
-padding:12px;
-background:#4f46e5;
-color:white;
-border:none;
-border-radius:6px;
-font-size:15px;
-cursor:pointer;
-transition:0.3s;
-}
+    /* RIGHT TABLE PANEL */
+    .table-panel {
+      width: 65%;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      animation: slideRight 0.6s ease;
+    }
 
-button:hover{
-background:#4338ca;
-transform:translateY(-2px);
-}
+    .table-panel h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
 
-/* RIGHT TABLE PANEL */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-.table-panel{
-width:65%;
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-animation:slideRight 0.6s ease;
-}
+    th {
+      text-align: left;
+      padding: 12px;
+      background: #eef2ff;
+      color: #333;
+      font-size: 14px;
+    }
 
-.table-panel h1{
-margin-bottom:20px;
-color:#333;
-}
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
 
-table{
-width:100%;
-border-collapse:collapse;
-}
+    tr {
+      transition: 0.2s;
+    }
 
-th{
-text-align:left;
-padding:12px;
-background:#eef2ff;
-color:#333;
-font-size:14px;
-}
+    tr:hover {
+      background: #f9fafc;
+    }
 
-td{
-padding:12px;
-border-bottom:1px solid #eee;
-font-size:14px;
-}
+    /* ANIMATIONS */
+    @keyframes slideLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-tr{
-transition:0.2s;
-}
-
-tr:hover{
-background:#f9fafc;
-}
-
-/* ANIMATIONS */
-
-@keyframes slideLeft{
-from{
-opacity:0;
-transform:translateX(-40px);
-}
-to{
-opacity:1;
-transform:translateX(0);
-}
-}
-
-@keyframes slideRight{
-from{
-opacity:0;
-transform:translateX(40px);
-}
-to{
-opacity:1;
-transform:translateX(0);
-}
-}
-
-</style>
-
+    @keyframes slideRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="wrapper">
+    <!-- LEFT FORM PANEL -->
+    <div class="form-panel">
+      <h2>Add New Product</h2>
+      <input id="productName" placeholder="Product Name">
+      <input id="productQty" placeholder="Quantity">
+      <input id="productPrice" placeholder="Price">
+      <button onclick="createProduct()">Add Product</button>
+    </div>
 
-<div class="wrapper">
+    <!-- RIGHT TABLE PANEL -->
+    <div class="table-panel">
+      <h1>Product Inventory</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="productsContainer"></tbody>
+      </table>
+    </div>
+  </div>
 
+  <script>
+    const BASE_API = "http://localhost:3001";
+async function fetchProducts() {
+      const response = await fetch(`${BASE_API}/products`);
+      const products = await response.json();
+      const container = document.getElementById("productsContainer");
+      container.innerHTML = "";
 
+      products.forEach(product => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${product.name}</td>
+          <td>${product.quantity}</td>
+          <td>$${product.price}</td>
+        `;
+        container.appendChild(row);
+      });
+    }
+    async function createProduct() {
+      const name = document.getElementById("productName").value;
+      const qty = document.getElementById("productQty").value;
+      const price = document.getElementById("productPrice").value;
 
-<div class="form-panel">
+      const productData = {
+        name: name,
+        quantity: qty,
+        price: price
+      };
+     await fetch(`${BASE_API}/products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(productData)
+      });
 
-<h2>Add New Product</h2>
-
-<input id="productName" placeholder="Product Name">
-
-<input id="productQty" placeholder="Quantity">
-
-<input id="productPrice" placeholder="Price">
-
-<button onclick="createProduct()">Add Product</button>
-
-</div>
-
-
-<div class="table-panel">
-
-<h1>Product Inventory</h1>
-
-<table>
-
-<thead>
-<tr>
-<th>Name</th>
-<th>Quantity</th>
-<th>Price</th>
-</tr>
-</thead>
-
-<tbody id="productsContainer"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-<script>
-
-const BASE_API = "http://localhost:3001";
-
-
-async function fetchProducts(){
-
-const response = await fetch(`${BASE_API}/products`);
-const products = await response.json();
-
-const container = document.getElementById("productsContainer");
-container.innerHTML="";
-
-products.forEach(product=>{
-
-const row = document.createElement("tr");
-
-row.innerHTML = `
-<td>${product.name}</td>
-<td>${product.quantity}</td>
-<td>$${product.price}</td>
-`;
-
-container.appendChild(row);
-
-});
-
-}
-
-async function createProduct(){
-
-const name=document.getElementById("productName").value;
-const qty=document.getElementById("productQty").value;
-const price=document.getElementById("productPrice").value;
-
-const productData={
-name:name,
-quantity:qty,
-price:price
-};
-
-await fetch(`${BASE_API}/products`,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(productData)
-});
-
-fetchProducts();
-
-}
-
-fetchProducts();
-
-</script>
-
+      fetchProducts();
+    }
+    fetchProducts();
+  </script>
 </body>
 </html>
